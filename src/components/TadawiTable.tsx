@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MedicalData } from "../core/entities/MedicalData";
+import { MedicalData } from "../app/core/entities/MedicalData";
 
 const TadawiTable = ({ sampleData }: { sampleData: MedicalData }) => {
   const [page, setPage] = useState(1);
@@ -12,11 +12,10 @@ const TadawiTable = ({ sampleData }: { sampleData: MedicalData }) => {
 
   return (
     <div className="p-4 bg-white shadow rounded-md font-sans">
-      <div className="text-center fw-bold text-primary mb-2" style={{ fontSize: '24px' }}>شركة تداوي الطبية ( فرعون )</div>
-      <div className="text-center fw-bold text-primary mb-2" style={{ fontSize: '24px' }}>Tadawi Medical (GNP)</div>
+
 
       <table className="w-100 border-secondary text-center table-bordered dashed-border">
-        <thead className="bg-primary text-white p-3" style={{ fontSize: '20px' }}>
+        <thead className="bg-primary text-white p-2" style={{ fontSize: '20px' }}>
           <tr>
             <th className="p-2 m-1"><p>N</p><p>م</p></th>
             <th className="p-2"><p>File Number</p> <p>رقم الملف</p></th>
@@ -29,9 +28,9 @@ const TadawiTable = ({ sampleData }: { sampleData: MedicalData }) => {
         <tbody>
           {pagedData.map((row, idx) => (
             <tr key={idx} className="border-top border-primary" style={{ borderTopColor: '#e5e7eb' }}>
-              <td className="p-3">{(page - 1) * itemsPerPage + idx + 1}</td>
-              <td className="p-3">{row.patient_file_no}</td>
-              <td className="p-3">{`${row.attendance_en} / ${row.attendance_ar}`}</td>
+              <td className="p-2">{(page - 1) * itemsPerPage + idx + 1}</td>
+              <td className="p-2">{row.patient_file_no}</td>
+              <td className="p-2">{`${row.attendance_en} / ${row.attendance_ar}`}</td>
               <td className="p-2">{`${row.description_en} / ${row.description_ar}`}</td>
               <td className="p-2">{row.trx_date}</td>
               <td className='p-2'>

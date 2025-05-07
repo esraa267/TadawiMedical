@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
-import MedicalService from "../services/medicalSevice";
-import { MedicalData } from "../core/entities/MedicalData";
+import MedicalService from "../app/services/medicalSevice";
+import { MedicalData } from "../app/core/entities/MedicalData";
 import TadawiTable from "./TadawiTable";
-
+import Header from "./Header";
 const DataPage = () => {
     const [data, setData] = useState([] as MedicalData);
     const [error, setError] = useState('');
     const fetchData = async () => {
         try {
-            
+
             const result = await MedicalService.getData();
             setData(result);
 
@@ -18,9 +18,12 @@ const DataPage = () => {
     }
     useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 10000);
+        const interval = setInterval(fetchData, 30000);
         return () => clearInterval(interval)
     }, [])
-    return <TadawiTable sampleData={data} />
+    return <div>
+        <Header />
+
+        <TadawiTable sampleData={data} /></div>
 }
 export default DataPage
