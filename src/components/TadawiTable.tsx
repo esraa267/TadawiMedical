@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MedicalData } from "../app/core/entities/MedicalData";
 
 const TadawiTable = ({ sampleData }: { sampleData: MedicalData }) => {
@@ -20,7 +20,13 @@ const TadawiTable = ({ sampleData }: { sampleData: MedicalData }) => {
   for (let i = startPage; i <= endPage; i++) {
     pageNumbers.push(i);
   }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPage(prevPage => (prevPage < totalPages ? prevPage + 1 : 1));
+    }, 30000); 
 
+    return () => clearInterval(interval);
+  }, [totalPages]);
   return (
     <div className="p-4 bg-white shadow rounded-md font-sans">
 
@@ -84,3 +90,5 @@ const TadawiTable = ({ sampleData }: { sampleData: MedicalData }) => {
 };
 
 export default TadawiTable;
+
+
