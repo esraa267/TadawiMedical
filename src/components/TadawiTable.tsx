@@ -9,6 +9,17 @@ const TadawiTable = ({ sampleData }: { sampleData: MedicalData }) => {
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
+  const totalPages = Math.ceil(sampleData.length / itemsPerPage);
+  const maxVisiblePages = 3;
+
+  const currentGroup = Math.floor((page - 1) / maxVisiblePages);
+  const startPage = currentGroup * maxVisiblePages + 1;
+  const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+
+  const pageNumbers = [];
+  for (let i = startPage; i <= endPage; i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div className="p-4 bg-white shadow rounded-md font-sans">
@@ -41,8 +52,16 @@ const TadawiTable = ({ sampleData }: { sampleData: MedicalData }) => {
         </tbody>
       </table>
 
-      <div className="d-flex justify-content-center gap-2 mt-4">
-        {[1, 2, 3].map((p) => (
+      <div className="d-flex gap-2 justify-content-center mt-3">
+        <button
+          onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+          className="px-3 py-1 border rounded"
+          disabled={page === 1}
+        >
+          Previous
+        </button>
+
+        {pageNumbers.map(p => (
           <button
             key={p}
             onClick={() => setPage(p)}
@@ -51,6 +70,14 @@ const TadawiTable = ({ sampleData }: { sampleData: MedicalData }) => {
             {p}
           </button>
         ))}
+
+        <button
+          onClick={() => setPage(prev => Math.min(prev + 1, totalPages))}
+          className="px-3 py-1 border rounded"
+          disabled={page === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
